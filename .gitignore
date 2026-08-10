@@ -1,0 +1,14 @@
+*.csv
+*.csv.gz
+/raw_data/
+
+staging_table.sql
+
+Thumbs.db
+*.swp
+
+.env
+
+__pycache__/
+*.pyc
+.venv/
