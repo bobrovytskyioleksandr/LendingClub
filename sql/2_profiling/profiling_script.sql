@@ -1,0 +1,196 @@
+
+--Generating profiling SELECT statemnt
+SELECT string_agg(
+         format('COUNT(*) FILTER (WHERE %I IS NULL OR %I = %L) AS %I',
+                column_name, column_name, '', column_name),
+         E',\n'
+         ORDER BY ordinal_position
+       ) AS select_list
+FROM information_schema.columns
+WHERE table_name = 'accepted_loans_full';
+
+
+--Null counts
+WITH null_counts AS (
+    SELECT
+        COUNT(*) FILTER (WHERE id IS NULL OR id = '') AS id,
+COUNT(*) FILTER (WHERE member_id IS NULL OR member_id = '') AS member_id,
+COUNT(*) FILTER (WHERE loan_amnt IS NULL OR loan_amnt = '') AS loan_amnt,
+COUNT(*) FILTER (WHERE funded_amnt IS NULL OR funded_amnt = '') AS funded_amnt,
+COUNT(*) FILTER (WHERE funded_amnt_inv IS NULL OR funded_amnt_inv = '') AS funded_amnt_inv,
+COUNT(*) FILTER (WHERE term IS NULL OR term = '') AS term,
+COUNT(*) FILTER (WHERE int_rate IS NULL OR int_rate = '') AS int_rate,
+COUNT(*) FILTER (WHERE installment IS NULL OR installment = '') AS installment,
+COUNT(*) FILTER (WHERE grade IS NULL OR grade = '') AS grade,
+COUNT(*) FILTER (WHERE sub_grade IS NULL OR sub_grade = '') AS sub_grade,
+COUNT(*) FILTER (WHERE emp_title IS NULL OR emp_title = '') AS emp_title,
+COUNT(*) FILTER (WHERE emp_length IS NULL OR emp_length = '') AS emp_length,
+COUNT(*) FILTER (WHERE home_ownership IS NULL OR home_ownership = '') AS home_ownership,
+COUNT(*) FILTER (WHERE annual_inc IS NULL OR annual_inc = '') AS annual_inc,
+COUNT(*) FILTER (WHERE verification_status IS NULL OR verification_status = '') AS verification_status,
+COUNT(*) FILTER (WHERE issue_d IS NULL OR issue_d = '') AS issue_d,
+COUNT(*) FILTER (WHERE loan_status IS NULL OR loan_status = '') AS loan_status,
+COUNT(*) FILTER (WHERE pymnt_plan IS NULL OR pymnt_plan = '') AS pymnt_plan,
+COUNT(*) FILTER (WHERE url IS NULL OR url = '') AS url,
+COUNT(*) FILTER (WHERE loan_desc IS NULL OR loan_desc = '') AS loan_desc,
+COUNT(*) FILTER (WHERE purpose IS NULL OR purpose = '') AS purpose,
+COUNT(*) FILTER (WHERE title IS NULL OR title = '') AS title,
+COUNT(*) FILTER (WHERE zip_code IS NULL OR zip_code = '') AS zip_code,
+COUNT(*) FILTER (WHERE addr_state IS NULL OR addr_state = '') AS addr_state,
+COUNT(*) FILTER (WHERE dti IS NULL OR dti = '') AS dti,
+COUNT(*) FILTER (WHERE delinq_2yrs IS NULL OR delinq_2yrs = '') AS delinq_2yrs,
+COUNT(*) FILTER (WHERE earliest_cr_line IS NULL OR earliest_cr_line = '') AS earliest_cr_line,
+COUNT(*) FILTER (WHERE fico_range_low IS NULL OR fico_range_low = '') AS fico_range_low,
+COUNT(*) FILTER (WHERE fico_range_high IS NULL OR fico_range_high = '') AS fico_range_high,
+COUNT(*) FILTER (WHERE inq_last_6mths IS NULL OR inq_last_6mths = '') AS inq_last_6mths,
+COUNT(*) FILTER (WHERE mths_since_last_delinq IS NULL OR mths_since_last_delinq = '') AS mths_since_last_delinq,
+COUNT(*) FILTER (WHERE mths_since_last_record IS NULL OR mths_since_last_record = '') AS mths_since_last_record,
+COUNT(*) FILTER (WHERE open_acc IS NULL OR open_acc = '') AS open_acc,
+COUNT(*) FILTER (WHERE pub_rec IS NULL OR pub_rec = '') AS pub_rec,
+COUNT(*) FILTER (WHERE revol_bal IS NULL OR revol_bal = '') AS revol_bal,
+COUNT(*) FILTER (WHERE revol_util IS NULL OR revol_util = '') AS revol_util,
+COUNT(*) FILTER (WHERE total_acc IS NULL OR total_acc = '') AS total_acc,
+COUNT(*) FILTER (WHERE initial_list_status IS NULL OR initial_list_status = '') AS initial_list_status,
+COUNT(*) FILTER (WHERE out_prncp IS NULL OR out_prncp = '') AS out_prncp,
+COUNT(*) FILTER (WHERE out_prncp_inv IS NULL OR out_prncp_inv = '') AS out_prncp_inv,
+COUNT(*) FILTER (WHERE total_pymnt IS NULL OR total_pymnt = '') AS total_pymnt,
+COUNT(*) FILTER (WHERE total_pymnt_inv IS NULL OR total_pymnt_inv = '') AS total_pymnt_inv,
+COUNT(*) FILTER (WHERE total_rec_prncp IS NULL OR total_rec_prncp = '') AS total_rec_prncp,
+COUNT(*) FILTER (WHERE total_rec_int IS NULL OR total_rec_int = '') AS total_rec_int,
+COUNT(*) FILTER (WHERE total_rec_late_fee IS NULL OR total_rec_late_fee = '') AS total_rec_late_fee,
+COUNT(*) FILTER (WHERE recoveries IS NULL OR recoveries = '') AS recoveries,
+COUNT(*) FILTER (WHERE collection_recovery_fee IS NULL OR collection_recovery_fee = '') AS collection_recovery_fee,
+COUNT(*) FILTER (WHERE last_pymnt_d IS NULL OR last_pymnt_d = '') AS last_pymnt_d,
+COUNT(*) FILTER (WHERE last_pymnt_amnt IS NULL OR last_pymnt_amnt = '') AS last_pymnt_amnt,
+COUNT(*) FILTER (WHERE next_pymnt_d IS NULL OR next_pymnt_d = '') AS next_pymnt_d,
+COUNT(*) FILTER (WHERE last_credit_pull_d IS NULL OR last_credit_pull_d = '') AS last_credit_pull_d,
+COUNT(*) FILTER (WHERE last_fico_range_high IS NULL OR last_fico_range_high = '') AS last_fico_range_high,
+COUNT(*) FILTER (WHERE last_fico_range_low IS NULL OR last_fico_range_low = '') AS last_fico_range_low,
+COUNT(*) FILTER (WHERE collections_12_mths_ex_med IS NULL OR collections_12_mths_ex_med = '') AS collections_12_mths_ex_med,
+COUNT(*) FILTER (WHERE mths_since_last_major_derog IS NULL OR mths_since_last_major_derog = '') AS mths_since_last_major_derog,
+COUNT(*) FILTER (WHERE policy_code IS NULL OR policy_code = '') AS policy_code,
+COUNT(*) FILTER (WHERE application_type IS NULL OR application_type = '') AS application_type,
+COUNT(*) FILTER (WHERE annual_inc_joint IS NULL OR annual_inc_joint = '') AS annual_inc_joint,
+COUNT(*) FILTER (WHERE dti_joint IS NULL OR dti_joint = '') AS dti_joint,
+COUNT(*) FILTER (WHERE verification_status_joint IS NULL OR verification_status_joint = '') AS verification_status_joint,
+COUNT(*) FILTER (WHERE acc_now_delinq IS NULL OR acc_now_delinq = '') AS acc_now_delinq,
+COUNT(*) FILTER (WHERE tot_coll_amt IS NULL OR tot_coll_amt = '') AS tot_coll_amt,
+COUNT(*) FILTER (WHERE tot_cur_bal IS NULL OR tot_cur_bal = '') AS tot_cur_bal,
+COUNT(*) FILTER (WHERE open_acc_6m IS NULL OR open_acc_6m = '') AS open_acc_6m,
+COUNT(*) FILTER (WHERE open_act_il IS NULL OR open_act_il = '') AS open_act_il,
+COUNT(*) FILTER (WHERE open_il_12m IS NULL OR open_il_12m = '') AS open_il_12m,
+COUNT(*) FILTER (WHERE open_il_24m IS NULL OR open_il_24m = '') AS open_il_24m,
+COUNT(*) FILTER (WHERE mths_since_rcnt_il IS NULL OR mths_since_rcnt_il = '') AS mths_since_rcnt_il,
+COUNT(*) FILTER (WHERE total_bal_il IS NULL OR total_bal_il = '') AS total_bal_il,
+COUNT(*) FILTER (WHERE il_util IS NULL OR il_util = '') AS il_util,
+COUNT(*) FILTER (WHERE open_rv_12m IS NULL OR open_rv_12m = '') AS open_rv_12m,
+COUNT(*) FILTER (WHERE open_rv_24m IS NULL OR open_rv_24m = '') AS open_rv_24m,
+COUNT(*) FILTER (WHERE max_bal_bc IS NULL OR max_bal_bc = '') AS max_bal_bc,
+COUNT(*) FILTER (WHERE all_util IS NULL OR all_util = '') AS all_util,
+COUNT(*) FILTER (WHERE total_rev_hi_lim IS NULL OR total_rev_hi_lim = '') AS total_rev_hi_lim,
+COUNT(*) FILTER (WHERE inq_fi IS NULL OR inq_fi = '') AS inq_fi,
+COUNT(*) FILTER (WHERE total_cu_tl IS NULL OR total_cu_tl = '') AS total_cu_tl,
+COUNT(*) FILTER (WHERE inq_last_12m IS NULL OR inq_last_12m = '') AS inq_last_12m,
+COUNT(*) FILTER (WHERE acc_open_past_24mths IS NULL OR acc_open_past_24mths = '') AS acc_open_past_24mths,
+COUNT(*) FILTER (WHERE avg_cur_bal IS NULL OR avg_cur_bal = '') AS avg_cur_bal,
+COUNT(*) FILTER (WHERE bc_open_to_buy IS NULL OR bc_open_to_buy = '') AS bc_open_to_buy,
+COUNT(*) FILTER (WHERE bc_util IS NULL OR bc_util = '') AS bc_util,
+COUNT(*) FILTER (WHERE chargeoff_within_12_mths IS NULL OR chargeoff_within_12_mths = '') AS chargeoff_within_12_mths,
+COUNT(*) FILTER (WHERE delinq_amnt IS NULL OR delinq_amnt = '') AS delinq_amnt,
+COUNT(*) FILTER (WHERE mo_sin_old_il_acct IS NULL OR mo_sin_old_il_acct = '') AS mo_sin_old_il_acct,
+COUNT(*) FILTER (WHERE mo_sin_old_rev_tl_op IS NULL OR mo_sin_old_rev_tl_op = '') AS mo_sin_old_rev_tl_op,
+COUNT(*) FILTER (WHERE mo_sin_rcnt_rev_tl_op IS NULL OR mo_sin_rcnt_rev_tl_op = '') AS mo_sin_rcnt_rev_tl_op,
+COUNT(*) FILTER (WHERE mo_sin_rcnt_tl IS NULL OR mo_sin_rcnt_tl = '') AS mo_sin_rcnt_tl,
+COUNT(*) FILTER (WHERE mort_acc IS NULL OR mort_acc = '') AS mort_acc,
+COUNT(*) FILTER (WHERE mths_since_recent_bc IS NULL OR mths_since_recent_bc = '') AS mths_since_recent_bc,
+COUNT(*) FILTER (WHERE mths_since_recent_bc_dlq IS NULL OR mths_since_recent_bc_dlq = '') AS mths_since_recent_bc_dlq,
+COUNT(*) FILTER (WHERE mths_since_recent_inq IS NULL OR mths_since_recent_inq = '') AS mths_since_recent_inq,
+COUNT(*) FILTER (WHERE mths_since_recent_revol_delinq IS NULL OR mths_since_recent_revol_delinq = '') AS mths_since_recent_revol_delinq,
+COUNT(*) FILTER (WHERE num_accts_ever_120_pd IS NULL OR num_accts_ever_120_pd = '') AS num_accts_ever_120_pd,
+COUNT(*) FILTER (WHERE num_actv_bc_tl IS NULL OR num_actv_bc_tl = '') AS num_actv_bc_tl,
+COUNT(*) FILTER (WHERE num_actv_rev_tl IS NULL OR num_actv_rev_tl = '') AS num_actv_rev_tl,
+COUNT(*) FILTER (WHERE num_bc_sats IS NULL OR num_bc_sats = '') AS num_bc_sats,
+COUNT(*) FILTER (WHERE num_bc_tl IS NULL OR num_bc_tl = '') AS num_bc_tl,
+COUNT(*) FILTER (WHERE num_il_tl IS NULL OR num_il_tl = '') AS num_il_tl,
+COUNT(*) FILTER (WHERE num_op_rev_tl IS NULL OR num_op_rev_tl = '') AS num_op_rev_tl,
+COUNT(*) FILTER (WHERE num_rev_accts IS NULL OR num_rev_accts = '') AS num_rev_accts,
+COUNT(*) FILTER (WHERE num_rev_tl_bal_gt_0 IS NULL OR num_rev_tl_bal_gt_0 = '') AS num_rev_tl_bal_gt_0,
+COUNT(*) FILTER (WHERE num_sats IS NULL OR num_sats = '') AS num_sats,
+COUNT(*) FILTER (WHERE num_tl_120dpd_2m IS NULL OR num_tl_120dpd_2m = '') AS num_tl_120dpd_2m,
+COUNT(*) FILTER (WHERE num_tl_30dpd IS NULL OR num_tl_30dpd = '') AS num_tl_30dpd,
+COUNT(*) FILTER (WHERE num_tl_90g_dpd_24m IS NULL OR num_tl_90g_dpd_24m = '') AS num_tl_90g_dpd_24m,
+COUNT(*) FILTER (WHERE num_tl_op_past_12m IS NULL OR num_tl_op_past_12m = '') AS num_tl_op_past_12m,
+COUNT(*) FILTER (WHERE pct_tl_nvr_dlq IS NULL OR pct_tl_nvr_dlq = '') AS pct_tl_nvr_dlq,
+COUNT(*) FILTER (WHERE percent_bc_gt_75 IS NULL OR percent_bc_gt_75 = '') AS percent_bc_gt_75,
+COUNT(*) FILTER (WHERE pub_rec_bankruptcies IS NULL OR pub_rec_bankruptcies = '') AS pub_rec_bankruptcies,
+COUNT(*) FILTER (WHERE tax_liens IS NULL OR tax_liens = '') AS tax_liens,
+COUNT(*) FILTER (WHERE tot_hi_cred_lim IS NULL OR tot_hi_cred_lim = '') AS tot_hi_cred_lim,
+COUNT(*) FILTER (WHERE total_bal_ex_mort IS NULL OR total_bal_ex_mort = '') AS total_bal_ex_mort,
+COUNT(*) FILTER (WHERE total_bc_limit IS NULL OR total_bc_limit = '') AS total_bc_limit,
+COUNT(*) FILTER (WHERE total_il_high_credit_limit IS NULL OR total_il_high_credit_limit = '') AS total_il_high_credit_limit,
+COUNT(*) FILTER (WHERE revol_bal_joint IS NULL OR revol_bal_joint = '') AS revol_bal_joint,
+COUNT(*) FILTER (WHERE sec_app_fico_range_low IS NULL OR sec_app_fico_range_low = '') AS sec_app_fico_range_low,
+COUNT(*) FILTER (WHERE sec_app_fico_range_high IS NULL OR sec_app_fico_range_high = '') AS sec_app_fico_range_high,
+COUNT(*) FILTER (WHERE sec_app_earliest_cr_line IS NULL OR sec_app_earliest_cr_line = '') AS sec_app_earliest_cr_line,
+COUNT(*) FILTER (WHERE sec_app_inq_last_6mths IS NULL OR sec_app_inq_last_6mths = '') AS sec_app_inq_last_6mths,
+COUNT(*) FILTER (WHERE sec_app_mort_acc IS NULL OR sec_app_mort_acc = '') AS sec_app_mort_acc,
+COUNT(*) FILTER (WHERE sec_app_open_acc IS NULL OR sec_app_open_acc = '') AS sec_app_open_acc,
+COUNT(*) FILTER (WHERE sec_app_revol_util IS NULL OR sec_app_revol_util = '') AS sec_app_revol_util,
+COUNT(*) FILTER (WHERE sec_app_open_act_il IS NULL OR sec_app_open_act_il = '') AS sec_app_open_act_il,
+COUNT(*) FILTER (WHERE sec_app_num_rev_accts IS NULL OR sec_app_num_rev_accts = '') AS sec_app_num_rev_accts,
+COUNT(*) FILTER (WHERE sec_app_chargeoff_within_12_mths IS NULL OR sec_app_chargeoff_within_12_mths = '') AS sec_app_chargeoff_within_12_mths,
+COUNT(*) FILTER (WHERE sec_app_collections_12_mths_ex_med IS NULL OR sec_app_collections_12_mths_ex_med = '') AS sec_app_collections_12_mths_ex_med,
+COUNT(*) FILTER (WHERE sec_app_mths_since_last_major_derog IS NULL OR sec_app_mths_since_last_major_derog = '') AS sec_app_mths_since_last_major_derog,
+COUNT(*) FILTER (WHERE hardship_flag IS NULL OR hardship_flag = '') AS hardship_flag,
+COUNT(*) FILTER (WHERE hardship_type IS NULL OR hardship_type = '') AS hardship_type,
+COUNT(*) FILTER (WHERE hardship_reason IS NULL OR hardship_reason = '') AS hardship_reason,
+COUNT(*) FILTER (WHERE hardship_status IS NULL OR hardship_status = '') AS hardship_status,
+COUNT(*) FILTER (WHERE deferral_term IS NULL OR deferral_term = '') AS deferral_term,
+COUNT(*) FILTER (WHERE hardship_amount IS NULL OR hardship_amount = '') AS hardship_amount,
+COUNT(*) FILTER (WHERE hardship_start_date IS NULL OR hardship_start_date = '') AS hardship_start_date,
+COUNT(*) FILTER (WHERE hardship_end_date IS NULL OR hardship_end_date = '') AS hardship_end_date,
+COUNT(*) FILTER (WHERE payment_plan_start_date IS NULL OR payment_plan_start_date = '') AS payment_plan_start_date,
+COUNT(*) FILTER (WHERE hardship_length IS NULL OR hardship_length = '') AS hardship_length,
+COUNT(*) FILTER (WHERE hardship_dpd IS NULL OR hardship_dpd = '') AS hardship_dpd,
+COUNT(*) FILTER (WHERE hardship_loan_status IS NULL OR hardship_loan_status = '') AS hardship_loan_status,
+COUNT(*) FILTER (WHERE orig_projected_additional_accrued_interest IS NULL OR orig_projected_additional_accrued_interest = '') AS orig_projected_additional_accrued_interest,
+COUNT(*) FILTER (WHERE hardship_payoff_balance_amount IS NULL OR hardship_payoff_balance_amount = '') AS hardship_payoff_balance_amount,
+COUNT(*) FILTER (WHERE hardship_last_payment_amount IS NULL OR hardship_last_payment_amount = '') AS hardship_last_payment_amount,
+COUNT(*) FILTER (WHERE disbursement_method IS NULL OR disbursement_method = '') AS disbursement_method,
+COUNT(*) FILTER (WHERE debt_settlement_flag IS NULL OR debt_settlement_flag = '') AS debt_settlement_flag,
+COUNT(*) FILTER (WHERE debt_settlement_flag_date IS NULL OR debt_settlement_flag_date = '') AS debt_settlement_flag_date,
+COUNT(*) FILTER (WHERE settlement_status IS NULL OR settlement_status = '') AS settlement_status,
+COUNT(*) FILTER (WHERE settlement_date IS NULL OR settlement_date = '') AS settlement_date,
+COUNT(*) FILTER (WHERE settlement_amount IS NULL OR settlement_amount = '') AS settlement_amount,
+COUNT(*) FILTER (WHERE settlement_percentage IS NULL OR settlement_percentage = '') AS settlement_percentage,
+COUNT(*) FILTER (WHERE settlement_term IS NULL OR settlement_term = '') AS settlement_term
+    FROM accepted_loans_full
+), total AS (
+    SELECT COUNT(*) AS total_rows FROM accepted_loans_full)
+SELECT
+    kv.key AS column_name,
+    kv.value::int AS null_count,
+    total.total_rows,
+    ROUND(kv.value::numeric / total.total_rows * 100, 1) AS null_pct
+FROM null_counts nc
+CROSS JOIN total
+CROSS JOIN LATERAL jsonb_each_text(to_jsonb(nc)) AS kv(key, value)
+ORDER BY null_pct DESC;
+
+--Quick value check 
+SELECT * FROM accepted_loans_full
+LIMIT 10;
+
+--Column by column
+SELECT
+    COUNT(*)                    AS total_rows,
+    COUNT(DISTINCT loan_desc)  AS distinct_values,
+    MIN(LENGTH(loan_desc))     AS min_len,
+    MAX(LENGTH(loan_desc))     AS max_len
+FROM accepted_loans_full;
+ 
+-- Actuall values
+SELECT loan_desc, COUNT(*)
+FROM accepted_loans_full
+GROUP BY loan_desc
+ORDER BY COUNT(*) DESC;

@@ -38,7 +38,7 @@ interactive dashboard linked to the database
 
 ## Key findings
 
-(woek in progress)
+(work in progress)
 
 ## Tools
 

@@ -1,19 +1,3 @@
-"""
-Generates a PostgreSQL CREATE TABLE statement for a raw/staging table,
-typing every column as TEXT, based on a CSV file's header row.
-
-Usage:
-    python generate_staging_table.py path/to/loans.csv
-
-Notes:
-- Only reads the header line, not the whole file, so this works fine
-  even on a multi-GB CSV.
-- Column names are lowercased and sanitized (spaces/invalid chars -> _)
-  so they're safe to use unquoted in SQL.
-- Output is written to staging_table.sql next to this script, and also
-  printed to the console.
-"""
-
 import csv
 import re
 import sys
