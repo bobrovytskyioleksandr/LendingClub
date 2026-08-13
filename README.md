@@ -3,7 +3,7 @@
 
 Credit risk & portfolio performance analysis on Lending Club's full
 2007–2018 accepted-loans dataset, using PostgreSQL for
-cleaning/analysis and [Power BI/Tableau] for the dashboard.
+cleaning/analysis and Power BI for the dashboard.
 
 ## Data
 
@@ -42,4 +42,4 @@ interactive dashboard linked to the database
 
 ## Tools
 
-PostgreSQL, (Power BI / Tableau)
+PostgreSQL, Power BI
