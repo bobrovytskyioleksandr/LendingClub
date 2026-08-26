@@ -175,7 +175,7 @@ SELECT
 FROM null_counts nc
 CROSS JOIN total
 CROSS JOIN LATERAL jsonb_each_text(to_jsonb(nc)) AS kv(key, value)
-ORDER BY null_pct DESC;
+ORDER BY column_name;
 
 --Quick value check 
 SELECT * FROM accepted_loans_full
@@ -190,7 +190,7 @@ SELECT
 FROM accepted_loans_full;
  
 -- Actuall values
-SELECT loan_desc, COUNT(*)
+SELECT dti, COUNT(*)
 FROM accepted_loans_full
-GROUP BY loan_desc
+GROUP BY dti
 ORDER BY COUNT(*) DESC;

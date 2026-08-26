@@ -1,5 +1,5 @@
 --Quick overview
-SELECT * FROM accepted_loans_clean
+SELECT *) FROM accepted_loans_clean
 LIMIT 10;
 
 --Total requested by borrowers
@@ -31,12 +31,12 @@ FROM accepted_loans_clean
 GROUP BY year 
 ORDER BY year;
 
---Total loan volume and amount requested by year
+--Total loan volume and interest rate requested by year
 SELECT
 	EXTRACT(YEAR FROM issue_date) AS year,
 	EXTRACT(QUARTER FROM issue_date) AS quarter,
 	COUNT(*) AS volume,
-	ROUND(AVG(int_rate), 2)
+	ROUND(AVG(int_rate), 2) AS int_rate
 FROM accepted_loans_clean
 GROUP BY year, quarter 
 ORDER BY year, quarter;
