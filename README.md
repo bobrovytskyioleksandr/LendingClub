@@ -48,25 +48,25 @@ For the purpose of outlining the most important information and keeping it conci
 
 On the first page, I decided to put the most general information regarding the dataset to illustrate the scale and give some rough idea of what the data is about. At the bottom of the page, three slicers allow the viewer to filter the data by year, grade, or purpose.
 
-![alt text](docs/Dashboard_overview.png)
+![alt text](docs/dashboard_img/Dashboard_overview.png)
 
 #### 2nd Page: Risk part 1
 
 This is the opening risk page, so the charts, especially the first one, are really straightforward. Default rate and interest rate development grouped by grade, probably the simplest way to illustrate the estimated risk, and a simple way to hint at the underlying structure of this dataset.
 
-![alt text](docs/Dashboard_risk1.png)
+![alt text](docs/dashboard_img/Dashboard_risk1.png)
 
 #### 3rd Page: Risk part 2
 
 On this page, I have done a lot of experimentation with available visuals to add some variety to the dashboard and make it more visually appealing. Making some of those panels work required me to create additional relations between some imported views, as they were not automatically identified by Power BI.
 
-![alt text](docs/Dashboard_risk2.png)
+![alt text](docs/dashboard_img/Dashboard_risk2.png)
 
 #### 4th Page: Return on Investment
 
 This is the visualization of my most important findings within this project. I write about it in more detail in `docs/findings.md`. In short, the return on investment for those loans is massively underwhelming. The lowest three grades outright lose money before even adjusting for capital cost, and the higher four grades don't earn enough to even cover inflation.
 
-![alt text](docs/Dashboard_ROI.png)
+![alt text](docs/dashboard_img/Dashboard_ROI.png)
 
 ## Key findings
 
